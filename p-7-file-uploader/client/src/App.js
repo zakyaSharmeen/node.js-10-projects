@@ -37,24 +37,53 @@ function App() {
     }
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     await axios.post(
+  //       "http://localhost:9000/api/v1/users",
+  //       formdata
+  //     );
+  //     setRender(true);
+  //     setInputs({
+  //       name: "",
+  //       email: "",
+  //       age: "",
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const submittedData = await axios.post(
+      // sendng to  bk-end
+      const response = await axios.post(
         "http://localhost:9000/api/v1/users",
         formdata
       );
-      setRender(true);
+
+      // Add the new user to the state without refreshing
+      setUsers([...users, response.data]);  // Add the newly created user to the users array
+
+      // Reset the form inputs
       setInputs({
         name: "",
         email: "",
         age: "",
       });
+      setProfile(null);  // Clear the profile picture input
+
     } catch (err) {
       console.log(err);
     }
-  };
+};
+
+
+
 
   return (
     <div
