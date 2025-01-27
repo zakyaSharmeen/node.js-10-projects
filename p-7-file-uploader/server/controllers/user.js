@@ -40,7 +40,28 @@ const userController = {
     }catch(err){
         return res.status(400).json(err)
     }
-  }
-};
+  },
+  deleteUser: async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const deletedUser = await userModel.findByIdAndDelete(id);
+      if (deletedUser) {
+        return res.status(200).json({ mssg: "User deleted successfully" });
+      } else {
+        return res.status(404).json({ mssg: "User not found" });
+      }
+    } catch (err) {
+      return res.status(400).json({ mssg: "An error occurred", error: err });
+    }
+  },
+  
+  
+}
+
+  
+
+
+
 
 module.exports = userController;
