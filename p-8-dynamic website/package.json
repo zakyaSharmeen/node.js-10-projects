@@ -1,0 +1,22 @@
+{
+  "name": "p-8-dynamic-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "hbs": "^4.2.0",
+    "jquery": "^3.7.1",
+    "mongoose": "^8.10.0",
+    "nodemon": "^3.1.9",
+    "validator": "^13.12.0"
+  }
+}
