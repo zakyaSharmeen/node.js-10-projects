@@ -67,6 +67,7 @@ router.delete("/:id", async (req, res) => {
     //    )
     return res.status(200).json({
       message: `'${result.name}' deleted successfully`,
+      deletedItem: result
     });
   } catch (err) {
     console.log(err);
@@ -81,7 +82,7 @@ router.delete("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    if (!req.body.name || !req.body.priceInCents || !req.body.image) {
+    if (!req.body.name || !req.body.priceInCents) {
       return res.status(404).send({
         mssg: " All Fields are Required",
       });

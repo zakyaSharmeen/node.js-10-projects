@@ -4,18 +4,18 @@ import { Link } from "react-router-dom";
 
 function Admin() {
   const [food, setFood] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/food")
       .then((res) => {
         setFood(res.data.data);
-        setLoading(false);
+        // setLoading(false);
       })
       .catch((err) => {
         console.log(err);
-        setLoading(false);
+        // setLoading(false);
 
         console.log("====================================");
       });
@@ -25,6 +25,12 @@ function Admin() {
    
      
       <div className=" bg-gray-400 px-4 py-8 max-w-7xl mx-auto mt-16">
+        <Link
+                          to="/admin/food/create"
+                          className="bg-orange-500 hover:bg-orange-900 text-white py-2 px-4 font-medium rounded-l-lg text-sm"
+                        >
+                          Add Item +
+                        </Link>
         <div className="overflow-x-auto shadow-md rounded-lg">
           <table className="w-full text-left">
             <thead className="uppercase bg-gray-200">
@@ -51,13 +57,13 @@ function Admin() {
                     <div className="flex justify-center gap-x-4">
                       <div className="flex justify-center gap-x-1">
                         <Link
-                          to="/"
+                          to={`/admin/food/edit/${food._id}`}
                           className="bg-orange-500 hover:bg-orange-900 text-white py-2 px-4 font-medium rounded-l-lg text-sm"
                         >
                           Edit
                         </Link>
                         <Link
-                          to="/"
+                          to={`/admin/food/delete/${food._id}`}
                           className="bg-red-500 hover:bg-red-900 text-white py-2 px-4 font-medium rounded-r-lg text-sm"
                         >
                           Delete
