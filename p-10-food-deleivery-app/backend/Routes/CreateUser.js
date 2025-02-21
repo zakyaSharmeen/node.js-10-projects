@@ -3,6 +3,10 @@ const UserModel = require("../models/User");
     const express = require("express")
     const router = express.Router()
     const { body, validationResult } = require('express-validator');
+    const bcrypt = require("bcrypt")
+    const jwt = require("jsonwebtoken")
+    const jwtSecret = "Mynameiszakuhhhhsharnebhbhhbh" 
+
 
 
     
@@ -17,6 +21,8 @@ const UserModel = require("../models/User");
                 return res.status(400).json({errors: errors.array()})
             }
 
+            const salt = await bcrypt.genSalt(10)
+            const secPassword = await bcrypt.hash(req.body.password, salt)
 
 
         try {
@@ -30,12 +36,12 @@ const UserModel = require("../models/User");
 
             const result = await UserModel.create({
                 name: req.body.name,
-                password: req.body.password,
+                password: secPassword,
                 email: req.body.email,
                 location: req.body.location,
             });
             console.log("User created successfully:", result);
-            res.json({ success: true });
+            res.json({ success: true , result});
         } catch (err) {
             console.log("Error occurred during user creation:");
             console.log(err.message);
@@ -67,15 +73,22 @@ const UserModel = require("../models/User");
                     error: "TRy login with correct credentials"
                 })
             }
-            if( req.body.password !== userData.password){
+
+            const pwdCompare = await bcrypt.compare(req.body.password, userData.password)
+            if( !pwdCompare){
                 return res.status(400).json({
                     error: "TRy login with correct credentials"
                 })
             }
-            
+            const data = {
+                user: {
+                    id: userData.id
+                }
+            }
+            const authToken = jwt.sign(data,jwtSecret)
+            return res.json({success: true, authToken: authToken})
     
 
-           return res.json({success: true})
         } catch (err) {
             console.log("Error occurred during login creation:");
             console.log(err.message);

@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 
 const UserRoute = require("./Routes/CreateUser")
+const DisplayDataRoute = require("./Routes/DisplayData")
 
 const port = 5000;
 
@@ -20,6 +21,8 @@ app.get("/", (req, res) => {
 app.use(express.json());
 
 app.use("/api", UserRoute);
+app.use("/api", DisplayDataRoute);
+
 
 app.listen(port, () => {
   console.log("====================================");
