@@ -5,6 +5,8 @@ const cors = require("cors");
 
 const UserRoute = require("./Routes/CreateUser")
 const DisplayDataRoute = require("./Routes/DisplayData")
+const OrderDataRoute = require("./Routes/OrderData")
+
 
 const port = 5000;
 
@@ -22,6 +24,8 @@ app.use(express.json());
 
 app.use("/api", UserRoute);
 app.use("/api", DisplayDataRoute);
+app.use("/api", OrderDataRoute);
+
 
 
 app.listen(port, () => {

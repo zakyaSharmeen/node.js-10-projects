@@ -7,9 +7,12 @@ import { BrowserRouter} from 'react-router-dom';
 
 
 import App from './App.jsx'
+import { CartProvider } from './components/ContextReducer.jsx';
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
+ <CartProvider>
+   <BrowserRouter>
     <App />
   </BrowserRouter>,
+ </CartProvider>
 )

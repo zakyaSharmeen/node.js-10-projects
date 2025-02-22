@@ -1,6 +1,20 @@
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import Badge from "react-bootstrap/Badge";
+import { useState } from "react";
+import Modal from "../Modal";
+import Cart from "../screens/Cart";
+import { useCart } from "./ContextReducer";
 export default function Navbar() {
+  const [cartView, setCartVeiw] = useState(false);
+  let data=useCart()
+  
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    navigate("/login");
+  };
+
   return (
     <div>
       <nav
@@ -40,31 +54,56 @@ export default function Navbar() {
                 </Link>
               </li>
 
-              <li className="nav-item">
-                <Link
-                  className="nav-link fs-5 mx-3 active"
-                  aria-current="page"
-                  to="/myorder"
-                >
-                  My Orders
-                </Link>
-              </li>
+              {localStorage.getItem("authToken") ? (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link fs-5 mx-3 active"
+                    aria-current="page"
+                    to="/myorder"
+                  >
+                    My Orders
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
             </ul>
 
-            <form className="d-flex">
-              <Link className="btn bg-white text-success mx-1 " to="/login">
-                Login
-              </Link>
-              <Link className="btn bg-white text-success mx-1" to="/createuser">
-                Signup
-              </Link>
-            </form>
+            {!localStorage.getItem("authToken") ? (
+              <div className="d-flex">
+                <Link className="btn bg-white text-success mx-1 " to="/login">
+                  Login
+                </Link>
+                <Link
+                  className="btn bg-white text-success mx-1"
+                  to="/createuser"
+                >
+                  Signup
+                </Link>
+              </div>
+            ) : (
+              <div>
+               
+                <div>
+                  <div className="btn bg-white text-success mx-2" onClick={()=> {setCartVeiw(true)}}>
+                    My Cart {""}
+                    <Badge pill bg="success">
+                      {data.length}
+                    </Badge>
+                  </div>
 
-            <div>
-              <div className="btn bg-white text-success mx-2 ">Cart</div>
-
-              <button className="btn bg-white text-success">Logout</button>
-            </div>
+                  {
+  cartView? <Modal onClose={()=> setCartVeiw(false)}><Cart/></Modal>: null
+} 
+                  <button
+                    className="btn bg-danger text-white"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </nav>

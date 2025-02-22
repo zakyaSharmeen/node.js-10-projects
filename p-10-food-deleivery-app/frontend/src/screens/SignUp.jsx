@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link,useNavigate  } from "react-router-dom"
 
     
     function SignUp() {
@@ -7,6 +7,7 @@ import { Link } from "react-router-dom"
             name: "", email: "", password: "",
             geolocation: ""
         })
+        const navigate = useNavigate()
 
         const handleSubmit = async (e) =>{
             e.preventDefault()
@@ -35,6 +36,9 @@ import { Link } from "react-router-dom"
 
             if(!json.success){
                 alert("enter valid credentials")
+            }else{
+              localStorage.setItem('token', json.authToken)
+              navigate("/login")
             }
         }
 
