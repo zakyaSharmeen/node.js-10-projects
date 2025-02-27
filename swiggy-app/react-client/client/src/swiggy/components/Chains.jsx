@@ -6,7 +6,8 @@
 import { useState, useEffect } from "react";
 import { API_URL } from "../api";
 import ChainSliders from "./ChainSliders";
-import { ColorRing} from "react-loader-spinner"
+import { BeatLoader } from "react-spinners"; 
+
 
 
 const Chains = () => {
@@ -46,14 +47,10 @@ const Chains = () => {
        YOur food is Loading..............
       </div>
       
-  <ColorRing
-  visible={true}
-  height="80"
-  width="80"
-  ariaLabel="color-ring-loading"
-  wrapperStyle={{}}
-  wrapperClass="color-ring-wrapper"
-  colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+  <BeatLoader
+
+color="#FF4500" size={12}
+  
   />
 
       </>

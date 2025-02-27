@@ -1,6 +1,10 @@
 import Chains from "../components/Chains"
+import CitiesFoodDelivery from "../components/CitiesFoodDelivery"
+import CitiesWithGroceryDelivery from "../components/CitiesWithGroceryDelivery"
 import FirmCollection from "../components/FirmCollection"
+import Footer from "../components/Footer"
 import ItemsDisplay from "../components/ItemsDisplay"
+import StickyPage from "../components/StickyPage"
 // import ProductMenu from "../components/ProductMenu"
 import TopBar from "../components/TopBar"
 
@@ -14,8 +18,22 @@ function LandingPage() {
           <ItemsDisplay/>
           <Chains/>
           <FirmCollection/>
-          {/* <ProductMenu/> */}
+         
+          
         </div>
+        <div>
+          <StickyPage/>
+        </div>
+
+        <div className="landingSection">
+        <CitiesFoodDelivery/>
+        <CitiesWithGroceryDelivery/>
+        </div>
+
+
+
+        <Footer/>
+
     </div>
   )
 }
